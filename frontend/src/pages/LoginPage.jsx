@@ -18,7 +18,7 @@ const LoginPage = () => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data));
       toast.success('Logged in successfully!');
-      fetchUserCart(data.token); // Fetch and merge server cart
+      fetchUserCart(data.token); // we Fetch and merge server cart here
       navigate('/');
     } catch (error) {
       toast.error(error.response?.data?.message || 'Login failed.');

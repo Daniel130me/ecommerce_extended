@@ -27,7 +27,7 @@ const registerCustomer = async (req, res) => {
     });
 
     if (user) {
-      // Merge cart
+      // Merge cart here. take note of that
       if (cart && cart.length > 0) {
         let userCart = await Cart.findOne({ user: user._id });
         if (!userCart) {

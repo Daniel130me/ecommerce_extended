@@ -34,7 +34,7 @@ const productSchema = new mongoose.Schema({
   ],
 }, { timestamps: true });
 
-// Create slug from name before saving
+// Create slug from name before saving. here we use slugify. you may take note. it was imported up there
 productSchema.pre('save', function (next) {
   if (this.isModified('name')) {
     this.slug = slugify(this.name, { lower: true });

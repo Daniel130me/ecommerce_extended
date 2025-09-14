@@ -25,7 +25,7 @@ const RegisterPage = () => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data));
       toast.success('Registered successfully!');
-      fetchUserCart(data.token); // Fetch and merge server cart
+      fetchUserCart(data.token); // we Fetch and merge server cart here. take note
       navigate('/');
     } catch (error) {
       toast.error(error.response?.data?.message || 'Registration failed.');

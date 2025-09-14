@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import api from '../services/api'; // Assuming you'll create this
+import api from '../services/api'; 
 
 const CartContext = createContext();
 
@@ -12,7 +12,7 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Load cart from localStorage on initial render for guest users
+  // Load cart from localStorage
   useEffect(() => {
     const storedCart = localStorage.getItem('cartItems');
     if (storedCart) {
@@ -21,14 +21,14 @@ export const CartProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  // Sync cart with localStorage whenever cartItems changes
+  // Sync cart with localStorage
   useEffect(() => {
     if (!loading) {
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }
   }, [cartItems, loading]);
 
-  // Fetch user's cart from backend if logged in
+  // Fetch user's cart from backend
   const fetchUserCart = async (token) => {
     try {
       const config = {
@@ -38,7 +38,7 @@ export const CartProvider = ({ children }) => {
       };
       const { data } = await api.get('/api/cart', config);
       setCartItems(data.items || []);
-      localStorage.removeItem('cartItems'); // Clear local storage cart after merging
+      localStorage.removeItem('cartItems'); // Clear local storage cart
     } catch (error) {
       console.error('Error fetching user cart:', error);
       toast.error('Failed to load cart.');
@@ -67,7 +67,7 @@ export const CartProvider = ({ children }) => {
 
     if (isLoggedIn) {
       try {
-        const token = localStorage.getItem('token'); // Assuming token is stored here
+        const token = localStorage.getItem('token');//obtain token from localstorage
         const config = {
           headers: {
             'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ export const CartProvider = ({ children }) => {
     let updatedCartItems = cartItems.map(item =>
       item.productId === productId ? { ...item, quantity } : item
     );
-    updatedCartItems = updatedCartItems.filter(item => item.quantity > 0); // Remove if quantity is 0
+    updatedCartItems = updatedCartItems.filter(item => item.quantity > 0); 
 
     setCartItems(updatedCartItems);
     toast.success('Cart updated!');
@@ -100,7 +100,7 @@ export const CartProvider = ({ children }) => {
             Authorization: `Bearer ${token}`,
           },
         };
-        await api.put(`/api/cart/${productId}`, { quantity }, config); // Assuming productId is used for update
+        await api.put(`/api/cart/${productId}`, { quantity }, config);
       } catch (error) {
         console.error('Error updating server cart:', error);
         toast.error('Failed to update server cart.');
@@ -133,8 +133,6 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
     toast.success('Cart cleared!');
     if (isLoggedIn) {
-      // Implement backend clear cart if needed, or rely on individual deletes
-      // For now, we'll assume individual deletes are sufficient or user logs out
     }
   };
 

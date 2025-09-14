@@ -11,7 +11,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProductsAndCategories = async () => {
       try {
-        const productRes = await api.get('/api/products?limit=8'); // Fetch some featured products
+        const productRes = await api.get('/api/products?limit=8'); // we are Fetching some featured products here. take note
         setProducts(productRes.data.products);
 
         const categoryRes = await api.get('/api/categories');

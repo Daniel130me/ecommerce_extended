@@ -14,7 +14,6 @@ const categorySchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
-// Create slug from name before saving
 categorySchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();

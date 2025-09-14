@@ -22,8 +22,7 @@ const CheckoutPage = () => {
       toast.error('Your cart is empty. Please add items before checking out.');
       return;
     }
-    // In a real application, you would send this data to your backend
-    // and integrate with a payment gateway.
+    //integrate with a payment gateway later.
     console.log('Order submitted:', { formData, cartItems });
     toast.success('Order placed successfully! (Simulated)');
     clearCart(); // Clear cart after successful order
